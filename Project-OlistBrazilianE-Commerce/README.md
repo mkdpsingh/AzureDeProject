@@ -9,3 +9,5 @@ Note - We need to use "/" in the end of Base URL.
 
 In Relative URL we are passing dynamic content whic will be like below which will take from ForEachInput.json manily the two variables,
 "csvRelativeUrl" & "file_name".
+
+Note - While creating Lookup uncheck "First row only" to get all data from json file.
