@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "MksAzureDeOlistDf"
+		},
+		"AzureDataLakeStorageOlist_accountKey": {
+			"value": ""
+		},
+		"MySqlOlistProject_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorageOlist_properties_typeProperties_url": {
+			"value": "https://mksoliststorageaccount.dfs.core.windows.net/"
+		},
+		"HttpGitHubLink_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/mkdpsingh/"
+		},
+		"JsonFileHttpLink_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/mkdpsingh/AzureDeProject/refs/heads/main/Project-OlistBrazilianE-Commerce/ForEachInput.json"
+		},
+		"MySqlOlistProject_properties_typeProperties_server": {
+			"value": "ypybi.h.filess.io"
+		},
+		"MySqlOlistProject_properties_typeProperties_database": {
+			"value": "olistProject_youlabelbe"
+		},
+		"MySqlOlistProject_properties_typeProperties_username": {
+			"value": "olistProject_youlabelbe"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
