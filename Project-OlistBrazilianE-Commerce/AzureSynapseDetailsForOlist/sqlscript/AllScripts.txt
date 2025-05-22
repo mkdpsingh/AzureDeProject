@@ -1,0 +1,81 @@
+SELECT
+     *
+FROM
+    OPENROWSET(
+        BULK 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/',
+        FORMAT = 'PARQUET'
+    ) AS result1
+
+    -- https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/ <- This we get link directly from parquet files stored in silver 
+
+SELECT
+     TOP 100 *
+FROM
+    OPENROWSET(
+        BULK 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/',
+        FORMAT = 'PARQUET'
+    ) AS result1
+
+
+CREATE SCHEMA gold
+
+CREATE VIEW gold.final
+AS
+SELECT
+     *
+FROM
+    OPENROWSET(
+        BULK 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/',
+        FORMAT = 'PARQUET'
+    ) AS result1
+
+SELECT count(*) FROM gold.final
+
+
+CREATE VIEW gold.final2
+AS
+SELECT
+     *
+FROM
+    OPENROWSET(
+        BULK 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/',
+        FORMAT = 'PARQUET'
+    ) AS result1
+WHERE order_status = 'delivered'
+
+select count(*) from gold.final2
+
+
+-- Note - Always create master key first before creating credentials
+
+-- CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'MksSynapse@12';
+
+-- CREATE DATABASE SCOPED CREDENTIAL mksadmin WITH IDENTITY = 'Managed Identity';
+
+
+-- Below two commands are used to select & delete credenatials and master key created
+SELECT * FROM sys.database_credentials;
+
+-- DROP DATABASE scoped CREDENTIAL mksOlistAdmin;
+
+-- DROP master key;
+
+CREATE EXTERNAL FILE FORMAT extFileFormat WITH (
+    FORMAT_TYPE = PARQUET,
+    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'
+);
+
+CREATE EXTERNAL DATA SOURCE goldLayer WITH (
+    LOCATION = 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/gold/',
+    CREDENTIAL = mksadmin
+);
+
+CREATE EXTERNAL TABLE gold.finalTable WITH (
+        LOCATION = 'finalServing',
+        DATA_SOURCE = goldLayer,
+        FILE_FORMAT = extFileFormat
+) AS
+SELECT * FROM gold.final2;
+
+SELECT COUNT(*) from gold.finalTable;
+
