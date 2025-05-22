@@ -1,0 +1,9 @@
+{
+	"name": "MksAzureDeOlistDf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e1008167-85db-4654-bbd3-135c3088383c",
+		"tenantId": "15e203e9-bdac-4076-bc61-29fb7005e633"
+	}
+}
