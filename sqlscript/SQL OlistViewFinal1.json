@@ -1,0 +1,17 @@
+{
+	"name": "SQL OlistViewFinal1",
+	"properties": {
+		"content": {
+			"query": "CREATE SCHEMA gold\n\nCREATE VIEW gold.final\nAS\nSELECT\n     *\nFROM\n    OPENROWSET(\n        BULK 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/',\n        FORMAT = 'PARQUET'\n    ) AS result1\n\nSELECT count(*) FROM gold.final",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "olist",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

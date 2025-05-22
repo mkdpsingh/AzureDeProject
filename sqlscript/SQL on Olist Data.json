@@ -1,0 +1,17 @@
+{
+	"name": "SQL on Olist Data",
+	"properties": {
+		"content": {
+			"query": "SELECT\n     *\nFROM\n    OPENROWSET(\n        BULK 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/',\n        FORMAT = 'PARQUET'\n    ) AS result1\n\n    -- https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/ <- This we get link directly from parquet files stored in silver \n\nSELECT\n     TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/silver/',\n        FORMAT = 'PARQUET'\n    ) AS result1",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "olist",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

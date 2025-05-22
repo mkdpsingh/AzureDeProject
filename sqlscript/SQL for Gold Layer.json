@@ -1,0 +1,17 @@
+{
+	"name": "SQL for Gold Layer",
+	"properties": {
+		"content": {
+			"query": "-- Note - Always create master key first before creating credentials\n\n-- CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'MksSynapse@12';\n\n-- CREATE DATABASE SCOPED CREDENTIAL mksadmin WITH IDENTITY = 'Managed Identity';\n\n\n-- Below two commands are used to select & delete credenatials and master key created\nSELECT * FROM sys.database_credentials;\n\n-- DROP DATABASE scoped CREDENTIAL mksOlistAdmin;\n\n-- DROP master key;\n\nCREATE EXTERNAL FILE FORMAT extFileFormat WITH (\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n);\n\nCREATE EXTERNAL DATA SOURCE goldLayer WITH (\n    LOCATION = 'https://mksoliststorageaccount.dfs.core.windows.net/olistdata/gold/',\n    CREDENTIAL = mksadmin\n);\n\nCREATE EXTERNAL TABLE gold.finalTable WITH (\n        LOCATION = 'finalServing',\n        DATA_SOURCE = goldLayer,\n        FILE_FORMAT = extFileFormat\n) AS\nSELECT * FROM gold.final2;\n\nSELECT COUNT(*) from gold.finalTable;\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "olist",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
