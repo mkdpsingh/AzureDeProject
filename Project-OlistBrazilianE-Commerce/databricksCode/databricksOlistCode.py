@@ -15,7 +15,7 @@ run_spark()
 storage_account = "mksoliststorageaccount"
 application_id = "5e4dc1f8-f429-4eb6-8888-4f4abd15d59f"
 directory_id = "15e203e9-bdac-4076-bc61-29fb7005e633"
-service_credential = "48l8Q~4KHUqvvNlLMOunEuIvtxVGxskPUZGM.aRj"
+service_credential = "olistAppRegistration - Secrets and certificates - value"
 
 spark.conf.set(f"fs.azure.account.auth.type.{storage_account}.dfs.core.windows.net", "OAuth")
 spark.conf.set(f"fs.azure.account.oauth.provider.type.{storage_account}.dfs.core.windows.net", 
